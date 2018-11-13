@@ -2,6 +2,8 @@ const {MongoClient, ObjectID} = require('mongodb')
 const fs = require('fs')
 const {username, password, database} = JSON.parse(fs.readFileSync('secrets.json', 'utf-8'))
 
+console.log(username, password, database)
+
 MongoClient.connect(`mongodb+srv://${username}:${password}@${database}.mongodb.net/test?retryWrites=true`,
   (err, client) => {
     if (err) {
