@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const fs = require('fs')
 const {username, password, database} = JSON.parse(fs.readFileSync('secrets.json', 'utf-8'))
-const uri = `mongodb+srv://${username}:${password}@${database}.mongodb.net/test`
+const uri = `mongodb+srv://${username}:${password}@${database}.mongodb.net/${database}`
 
 console.log(username, password, database)
 
