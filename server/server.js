@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { ObjectID } = require('mongodb')
 
-// const { mongoose } = require('./db/mongoose')
+const { mongoose } = require('./db/mongoose')
 const { Todo } = require('./models/todo')
 // const { User } = require('./models/user')
 
@@ -23,15 +23,12 @@ app.post('/todos', (req, res) => {
 })
 
 app.get('/todos', (req, res) => {
+  console.log('get todos')
   Todo.find().then((todos) => {
     res.send({ todos })
   }, (e) => {
     res.status(400).send(e)
   })
-})
-
-app.listen(3000, () => {
-  console.log('Started on port 3000')
 })
 
 app.get('/todos/:id', (req, res) => {
@@ -53,6 +50,23 @@ app.get('/todos/:id', (req, res) => {
   })
 })
 
+app.delete('/todos/:id', (req, res) => {
+  const { id } = req.params
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send()
+  }
+
+  Todo.findOneAndDelete({ _id: id }).then((todo) => {
+    if (!todo) {
+      return res.status(404).send()
+    }
+    res.send({ todo })
+  }).catch(() => {
+    res.status(404).send()
+  })
+})
+
 /*
 let newUser = new User({
   email: 'new@user.com'
@@ -64,5 +78,9 @@ newUser.save().then((doc) => {
   console.log('Unable to create new user', e)
 })
 */
+
+app.listen(3000, () => {
+  console.log('Started on port 3000')
+})
 
 module.exports = { app }
