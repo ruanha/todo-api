@@ -36,3 +36,5 @@ newUser.save().then((doc) => {
 }, (e) => {
   console.log('Unable to create new user', e)
 })*/
+
+module.exports = { app }
