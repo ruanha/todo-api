@@ -6,7 +6,7 @@ const uri = `mongodb+srv://${username}:${password}@${database}.mongodb.net/test`
 console.log(username, password, database)
 
 mongoose.Promise = global.Promise
-// mongoose.connect(`mongodb+srv://${username}:${password}@${database}.mongodb.net/${database}?retryWrites=true`, { useNewUrlParser: true } )
+
 mongoose.connect(uri, { useNewUrlParser: true })
 
 module.exports = { mongoose }
