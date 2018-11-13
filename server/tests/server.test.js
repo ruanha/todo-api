@@ -7,10 +7,10 @@ const { Todo } = require('./../models/todo')
 
 const todos = [{
   _id: new ObjectID(),
-  text: 'First test todo'
+  text: 'First test todo',
 }, {
   _id: new ObjectID(),
-  text: 'Second test todo'
+  text: 'Second test todo',
 }]
 
 beforeEach((done) => {
