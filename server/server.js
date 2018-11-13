@@ -51,7 +51,6 @@ app.get('/todos/:id', (req, res) => {
   }).catch((e) => {
     res.status(404).send()
   })
-
 })
 
 /*
