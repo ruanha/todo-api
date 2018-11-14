@@ -52,6 +52,26 @@ UserSchema.methods.generateAuthToken = function generateAuthToken() {
   })
 }
 
+// statics are like methods but for the model, methods are instance methods
+UserSchema.statics.findByToken = function findByToken(token) {
+  const User = this
+  let decoded
+
+  try {
+    decoded = jwt.verify(token, 'secretValue')
+  } catch (e) {
+    return Promise.reject()
+  }
+
+  if (decoded) {
+    return User.findOne({
+      _id: decoded._id,
+      'tokens.token': token,
+      'tokens.access': 'auth',
+    })
+  }
+}
+
 const User = mongoose.model('User', UserSchema)
 
 module.exports = { User }
