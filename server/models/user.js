@@ -53,6 +53,16 @@ UserSchema.methods.generateAuthToken = function generateAuthToken() {
   })
 }
 
+UserSchema.methods.removeToken = function removeToken(token) {
+  const user = this
+  
+  return user.update({
+    $pull: {
+      tokens: { token },
+    },
+  })
+}
+
 // statics are like methods but for the model, methods are instance methods
 UserSchema.statics.findByToken = function findByToken(token) {
   const User = this
